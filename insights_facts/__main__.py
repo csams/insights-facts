@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-# loader the stuff we care about
+# load the stuff we care about
 dr.load_components("insights.specs.default")
 dr.load_components("insights.specs.insights_archive")
 dr.load_components("insights.specs.sos_archive")
@@ -53,4 +53,4 @@ dr.add_observer(saver, fact_set)
 
 # run our components
 comps = dr.COMPONENTS_BY_TYPE[fact_set]
-run(comps)
+run(comps, print_summary=True)

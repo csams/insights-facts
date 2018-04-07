@@ -25,7 +25,7 @@ class ModelBase(DeclarativeMeta):
             dct["system_id"] = Column(String)
             dct["account"] = Column(String)
 
-            fields = dct.get("_fields") or {}
+            fields = dct.get("_fields", {})
             for k, v in fields.items():
                 dct[k] = v
             if fields:

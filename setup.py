@@ -12,8 +12,6 @@ develop = {
 }
 
 if __name__ == "__main__":
-    # allows for runtime modification of rpm name
-
     setup(
         name="insights_facts",
         version="0.0.1",
