@@ -11,18 +11,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-# load the stuff we care about
-dr.load_components("insights.specs.default")
-dr.load_components("insights.specs.insights_archive")
-dr.load_components("insights.specs.sos_archive")
-dr.load_components("insights_facts.plugins")
-
 # SQL Alchemy boilerplate...
 engine = create_engine("sqlite:///data.db")
-Base.metadata.create_all(engine)
-
 Session = sessionmaker(bind=engine)
 session = Session()
+
+
+def loading_finished():
+    Base.metadata.create_all(engine)
 
 
 def saver(component, broker):
@@ -50,7 +46,10 @@ def saver(component, broker):
 
 # register the saver above to watch fact_sets
 dr.add_observer(saver, fact_set)
+dr.add_finished_loading_callback(loading_finished)
 
 # run our components
-comps = dr.COMPONENTS_BY_TYPE[fact_set]
-run(comps, print_summary=True)
+if __name__ == "__main__":
+    dr.load_components("insights_facts.plugins")
+    comps = dr.COMPONENTS_BY_TYPE[fact_set]
+    run(comps, print_summary=True)

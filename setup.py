@@ -25,6 +25,6 @@ if __name__ == "__main__":
         },
         include_package_data=True,
         dependency_links=[
-            "git+https://github.com/RedHatInsights/insights-core.git@master#egg=insights-core-0"
+            "git+https://github.com/RedHatInsights/insights-core.git@load_finished_callback#egg=insights-core-0"
         ]
     )
